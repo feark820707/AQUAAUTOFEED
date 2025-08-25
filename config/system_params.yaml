@@ -1,0 +1,145 @@
+# 系統參數配置文件
+
+# 硬體參數
+hardware:
+  camera:
+    resolution: [1920, 1080]
+    fps: 60
+    device_id: 0
+    exposure_mode: "auto"
+    
+  pwm:
+    frequency: 1000  # Hz
+    min_duty_cycle: 20  # %
+    max_duty_cycle: 70  # %
+    gpio_pin: 18
+    
+  led_lighting:
+    gpio_pin: 19
+    brightness: 80  # %
+    
+  airflow_simulator:
+    gpio_pins: [20, 21, 22]  # 3-bit控制，支援8檔
+    default_level: 0
+
+# 視覺處理參數
+vision:
+  roi_config:
+    roi_bub:
+      x: 400
+      y: 300
+      width: 320
+      height: 240
+    roi_ring:
+      x: 200
+      y: 150
+      width: 720
+      height: 480
+      
+  preprocessing:
+    clahe:
+      clip_limit: 2.0
+      tile_grid_size: [8, 8]
+    
+    histogram_matching:
+      enable: true
+      reference_image_path: "config/reference_pool.jpg"
+      
+  feature_extraction:
+    motion_energy:
+      temporal_window: 5  # frames
+      threshold: 15
+      
+    ripple_spectral:
+      fft_window: 64
+      high_freq_start: 0.3  # normalized frequency
+      low_freq_end: 0.1
+      
+    bubble_pop:
+      min_area: 50
+      max_area: 500
+      circularity_threshold: 0.7
+      
+    optical_flow:
+      pyramid_levels: 3
+      window_size: 15
+      criteria_epsilon: 0.01
+
+# 特徵融合參數
+feature_fusion:
+  weights:
+    alpha: 0.4   # RSI權重
+    beta: 0.3    # POP權重
+    gamma: 0.2   # FLOW權重
+    delta: 0.1   # ME_ring權重（負貢獻）
+    
+  baseline:
+    ME0: 10.0    # 靜水基線
+    RSI0: 0.2
+    
+  normalization:
+    RSI_max: 2.0
+    POP_max: 10.0
+    FLOW_max: 100.0
+    ME_max: 50.0
+
+# 控制器參數
+controller:
+  timing:
+    t_feed: 0.6      # 餵食時間窗 (秒)
+    t_eval: 3.0      # 評估時間窗 (秒)
+    t_settle: 1.0    # 穩定等待時間 (秒)
+    
+  thresholds:
+    H_hi: 0.65       # 高活躍度門檻
+    H_lo: 0.35       # 低活躍度門檻
+    
+  pi_controller:
+    Kp: 15.0         # 比例增益
+    Ki: 2.0          # 積分增益
+    
+  constraints:
+    delta_up: 10.0   # PWM最大上升幅度 (%)
+    delta_down: 15.0 # PWM最大下降幅度 (%)
+    
+  anti_windup:
+    enable: true
+    max_integral: 50.0
+
+# 異常檢測參數
+anomaly_detection:
+  fps_threshold: 50    # 最低FPS要求
+  low_activity_duration: 30  # 持續低活躍度時間 (秒)
+  camera_disconnect_timeout: 5.0  # 相機斷線超時 (秒)
+  
+  fallback_mode:
+    pwm_safe_value: 30  # 安全模式PWM值 (%)
+    evaluation_extension: 2.0  # 評估時間延長倍數
+
+# 記錄與日誌參數
+logging:
+  csv_output:
+    enable: true
+    file_path: "logs/feeding_log_{date}.csv"
+    columns: ["timestamp", "state", "pwm", "H", "RSI", "POP", "FLOW", "ME_ring", "warnings"]
+    
+  daily_report:
+    enable: true
+    output_dir: "logs/reports/"
+    plot_types: ["H_vs_PWM", "activity_timeline", "anomaly_events"]
+    
+  debug_images:
+    enable: false
+    output_dir: "logs/debug_images/"
+    save_interval: 30  # 秒
+
+# 驗證與測試參數
+validation:
+  demo_mode:
+    enable: false
+    correlation_target: 0.75  # 與airflow_level的期望相關係數
+    
+  performance_targets:
+    pwm_oscillation_limit: 15  # PWM振盪幅度限制 (%)
+    response_time_limit: 1.0   # 故障反應時間限制 (秒)
+    hit_rate_target: 0.70      # T_disappear命中率目標

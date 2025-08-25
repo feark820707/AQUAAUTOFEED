@@ -1,0 +1,54 @@
+# Python依賴包清單
+# 核心依賴
+opencv-python>=4.5.0
+numpy>=1.19.0
+scipy>=1.6.0
+matplotlib>=3.3.0
+pyyaml>=5.4.0
+scikit-image>=0.18.0
+
+# ROS2相關 (需要預先安裝ROS2 Foxy)
+# rclpy (隨ROS2安裝)
+# cv_bridge (隨ROS2安裝)
+# sensor_msgs (隨ROS2安裝)
+# std_msgs (隨ROS2安裝)
+
+# Jetson GPIO (僅Jetson平台)
+# Jetson.GPIO (需手動安裝: sudo pip3 install Jetson.GPIO)
+
+# 開發工具
+pytest>=6.0.0
+flake8>=3.8.0
+black>=21.0.0
+
+# 資料分析
+pandas>=1.2.0
+seaborn>=0.11.0
+plotly>=5.0.0
+
+# 系統監控
+psutil>=5.8.0
+GPUtil>=1.4.0
+
+# 日誌處理
+loguru>=0.5.0
+
+# 配置管理
+python-dotenv>=0.19.0
+
+# 圖像處理擴展
+Pillow>=8.0.0
+imageio>=2.9.0
+
+# 數值計算
+numba>=0.53.0  # 加速計算
+
+# 串口通訊 (如需要)
+pyserial>=3.5
+
+# Web介面 (可選)
+flask>=2.0.0
+flask-socketio>=5.0.0
+
+# 資料庫 (可選)
+sqlite3  # Python內建

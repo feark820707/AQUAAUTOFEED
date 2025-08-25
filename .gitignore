@@ -1,0 +1,130 @@
+# Git 忽略文件
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虛擬環境
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# 系統文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日誌文件
+logs/
+*.log
+*.log.*
+
+# 配置文件備份
+config/*.bak
+config/*.backup
+*.orig
+
+# 資料文件
+data/
+datasets/
+*.csv
+*.json
+*.pkl
+*.pickle
+
+# 臨時文件
+tmp/
+temp/
+*.tmp
+*.temp
+
+# 編譯文件
+*.o
+*.a
+*.lib
+*.dll
+*.exe
+
+# ROS2
+build/
+install/
+log/
+.colcon_install_layout
+.colcon_build_layout
+
+# 模型文件
+*.pth
+*.h5
+*.onnx
+*.trt
+
+# 圖像和視頻文件
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.mp4
+*.avi
+*.mov
+*.mkv
+
+# 測試覆蓋率
+.coverage
+htmlcov/
+.pytest_cache/
+
+# 環境變數
+.env
+.env.local
+.env.*.local
+
+# 文檔構建
+docs/_build/
+docs/build/
+
+# 特定於專案的忽略
+# 校正圖像
+calibration_images/
+# 調試輸出
+debug_output/
+# 實驗數據
+experiments/
+# 備份文件
+backups/
